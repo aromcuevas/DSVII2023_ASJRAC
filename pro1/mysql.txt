@@ -1,0 +1,28 @@
+
+
+
+CREATE TABLE tareas (
+ id smallint(5) unsigned NOT NULL auto_increment,
+ titulo varchar(100) NOT NULL default '',
+ descripcion varchar(500) default '',
+ estado enum('por hacer','progreso','terminada') NOT NULL default 'por hacer',
+ fecha_i datetime default current_timestamp on update current_timestamp,
+ fecha_f datetime default date_add(current_timestamp, interval 1 hour),
+ etiqueta varchar(100) default NULL,
+ responsable varchar(100) NOT NULL default '',
+ tipo enum('diaria','semanal','mensual') NOT NULL default 'diaria',
+ PRIMARY KEY (id)
+);
+
+
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_listar_tareas`()
+BEGIN
+  SELECT id, titulo, descripcion, estado, fecha_i, fecha_f, etiqueta, responsable, tipo FROM tareas;
+END ;
+
+
+INSERT INTO `tareas`(`id`, `titulo`, `descripcion`, `estado`, `fecha`, `etiqueta`, `responsable`, `tipo`, `fecha_i`, `fecha_f`) 
+VALUES ('1','Inventariar dispositivos.','','progreso','','','Informática','mensual','',''); 
+
+
