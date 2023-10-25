@@ -11,6 +11,7 @@ protected $fecha_f;
 protected $etiqueta;
 protected $responsable;
 protected $tipo;
+protected $checklist;
 
 public function __construct(){
   parent::__construct();
@@ -46,7 +47,18 @@ $resultado=$consulta->fetch_all(MYSQLI_ASSOC);
   }
 }
 
-}
+public function actualizar_tareas($titulo,$descripcion,$fecha_f,$responsable,$tipo){
 
+  $instruccion = "CALL sp_actualizar_tareas('".$titulo."','".$descripcion.",'".$fecha_f.",'".$responsable.",'".$tipo."')";
+  $actualiza=$this->_db->query($instruccion);
+  
+    if($actualiza){
+      return $actualiza;
+      $actualiza->close();
+      $this->_db->close();
+    }
+  }
+  
+}
 ?>
  

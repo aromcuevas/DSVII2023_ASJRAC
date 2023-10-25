@@ -1,18 +1,50 @@
 
-
-
 CREATE TABLE tareas (
  id smallint(5) unsigned NOT NULL auto_increment,
  titulo varchar(100) NOT NULL default '',
  descripcion varchar(500) default '',
- estado enum('por hacer','progreso','terminada') NOT NULL default 'por hacer',
+ estado enum('por hacer','en progreso','terminada') NOT NULL default 'por hacer',
  fecha_i datetime default current_timestamp on update current_timestamp,
  fecha_f datetime default date_add(current_timestamp, interval 1 hour),
  etiqueta varchar(100) default NULL,
  responsable varchar(100) NOT NULL default '',
- tipo enum('diaria','semanal','mensual') NOT NULL default 'diaria',
+ tipo enum('A','B','C','D') NOT NULL default 'D',
+ checklist varchar(3) NOT NULL default 'no',
  PRIMARY KEY (id)
 );
+
+
+
+INSERT INTO `tareas`(`id`, `titulo`, `descripcion`, `estado`, `etiqueta`, `responsable`, `tipo`, `fecha_i`, `fecha_f`, `checklist`) 
+VALUES ('','Desarrollo de Nueva Característica.','','por hacer','','Equipo de Desarrollo','A','','','no'); 
+
+INSERT INTO `tareas`(`id`, `titulo`, `descripcion`, `estado`, `etiqueta`, `responsable`, `tipo`, `fecha_i`, `fecha_f`, `checklist`) 
+VALUES ('','Pruebas de Jugabilidad.','','por hacer','','Equipo de Pruebas','A','','','no'); 
+
+INSERT INTO `tareas`(`id`, `titulo`, `descripcion`, `estado`, `etiqueta`, `responsable`, `tipo`, `fecha_i`, `fecha_f`, `checklist`) 
+VALUES ('','Desarrollo de Niveles y Escenarios.','','por hacer','','Equipo de Diseño','A','','','no'); 
+
+INSERT INTO `tareas`(`id`, `titulo`, `descripcion`, `estado`, `etiqueta`, `responsable`, `tipo`, `fecha_i`, `fecha_f`, `checklist`) 
+VALUES ('','Optimización del Rendimiento.','','por hacer','','Equipo de Optimización','B','','','no'); 
+
+INSERT INTO `tareas`(`id`, `titulo`, `descripcion`, `estado`, `etiqueta`, `responsable`, `tipo`, `fecha_i`, `fecha_f`, `checklist`) 
+VALUES ('','Arte Conceptual.','','por hacer','','Equipo de Arte','B','','','no'); 
+
+INSERT INTO `tareas`(`id`, `titulo`, `descripcion`, `estado`, `etiqueta`, `responsable`, `tipo`, `fecha_i`, `fecha_f`, `checklist`) 
+VALUES ('','Desarrollo de Inteligencia Artificial.','','por hacer','','Equipo de IA','A','','','no'); 
+
+INSERT INTO `tareas`(`id`, `titulo`, `descripcion`, `estado`, `etiqueta`, `responsable`, `tipo`, `fecha_i`, `fecha_f`, `checklist`) 
+VALUES ('','Historia y Narrativa.','','por hacer','','Equipo de Escritura','A','','','no'); 
+
+INSERT INTO `tareas`(`id`, `titulo`, `descripcion`, `estado`, `etiqueta`, `responsable`, `tipo`, `fecha_i`, `fecha_f`, `checklist`) 
+VALUES ('','Actualización de Plataformas y Tecnologías.','','por hacer','','Equipo de Tecnología','B','','','no'); 
+
+INSERT INTO `tareas`(`id`, `titulo`, `descripcion`, `estado`, `etiqueta`, `responsable`, `tipo`, `fecha_i`, `fecha_f`, `checklist`) 
+VALUES ('','Creación de Contenido Descargable.','','por hacer','','Equipo de Contenido Adicional','C','','','no'); 
+
+INSERT INTO `tareas`(`id`, `titulo`, `descripcion`, `estado`, `etiqueta`, `responsable`, `tipo`, `fecha_i`, `fecha_f`, `checklist`) 
+VALUES ('','Marketing y Promoción.','','por hacer','','Equipo de Marketing','C','','','no'); 
+
 
 
 
@@ -22,7 +54,18 @@ BEGIN
 END ;
 
 
-INSERT INTO `tareas`(`id`, `titulo`, `descripcion`, `estado`, `fecha`, `etiqueta`, `responsable`, `tipo`, `fecha_i`, `fecha_f`) 
-VALUES ('1','Inventariar dispositivos.','','progreso','','','Informática','mensual','',''); 
 
-
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_actualizar_tareas`(
+IN param_titulo VARCHAR(100),
+IN param_descripcion VARCHAR(300),
+IN param_fecha_f VARCHAR(20),
+IN param_responsable VARCHAR(50),
+IN param_tipo VARCHAR(30)
+)
+BEGIN
+  SET @s = CONCAT("UPDATE tareas SET titulo=", param_titulo,", descripcion=", param_descripcion, 
+                  ",fecha_f=", param_fecha_f,", responsable=", param_responsable,", tipo=", param_tipo);
+  PREPARE stmt FROM @s;
+  EXECUTE stmt;
+  DEALLOCATE PREPARE stmt;
+END ;

@@ -1,7 +1,7 @@
 <HTML LANG="es">
 <HEAD>
   <META CHARSET="UTF-8" NAME="viewport">
-  <TITLE>Tareas - Proyecto 1</TITLE>
+  <TITLE>Reporte de Tareas - Proyecto 1</TITLE>
   <LINK REL="stylesheet" TYPE="text/css" HREF="css/estilo.css">
 </HEAD>
 <BODY>
@@ -29,13 +29,12 @@ if ($nfilas > 0){
     print ("<td>" . $resultado['titulo'] . "</td>\n");
     print ("<td>" . $resultado['estado'] . "</td>\n");
     print ("<td>" . $resultado['responsable'] . "</td>\n");
-    print ("<td>" . date("j/n/Y",strtotime($resultado['fecha_i'])) . "</td>\n");
-    print ("<td>" . date("j/n/Y",strtotime($resultado['fecha_f'])) . "</td>\n");
+    print ("<td>" . date("j/n/Y H:i",strtotime($resultado['fecha_i'])) . "</td>\n");
+    print ("<td>" . date("j/n/Y H:i",strtotime($resultado['fecha_f'])) . "</td>\n");
     print ("<td>" . $resultado['tipo'] . "</td>\n");
   }
   print ("</table>\n");
-  print ("<br><br>\n");
-  print ("[ <a href='actividades.php' target='_top'>Actividades</a> ]\n");
+  include("navegacion.php");
 }
 else{
   print ("No hay tareas disponibles");
