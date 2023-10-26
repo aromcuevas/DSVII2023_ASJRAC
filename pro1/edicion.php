@@ -19,23 +19,24 @@ if(array_key_exists('enviar', $_POST)){
     $fecha_f = $_REQUEST['fecha_f'];
     $responsable = $_REQUEST['responsable'];
     $tipo = $_REQUEST['tipo'];
+    $checklist = $_REQUEST['checklist'];
 
     if ($_REQUEST['titulo'] != ""){
 
         $obj_tarea = new tarea();
-        $result = $obj_tarea->actualizar_tareas($titulo, $descripcion, $fecha_f, $responsable, $tipo);
+        $result = $obj_tarea->actualizar_tareas($titulo, $descripcion, $fecha_f, $responsable, $tipo,$checklist);
 
         if($result){
             echo "Tarea Registrada: $_REQUEST[titulo]. ";
             print ("<A HREF='actividades.php'>Actividades</A>\n");
         }
         else{
-            print("<A HREF='nueva.php'>Error al actualizar tarea</A>\n");
+            print("<A HREF='edicion.php'>Error al actualizar tarea</A>\n");
         }        
     }
     else
     {
-      echo "Falta información por agregar. <a href='nueva.php' target='_top'>Volver</a>.";
+      echo "Falta información por agregar. <a href='edicion.php' target='_top'>Volver</a>.";
     }
 }
 else{
@@ -43,7 +44,7 @@ else{
 <form action='edicion.php' method='post'>
 <table>
 <tr><td><p><label>Titulo:</label></p></td>
-        <td><select type='text' name='check'>
+        <td><select type='text' name='titulo'>
 <?php
 $nfilas=count($tareas);
 if ($nfilas > 0){
@@ -64,6 +65,11 @@ if ($nfilas > 0){
             <option value="diaria">Diaria</option>
             <option value="semanal">Semanal</option>
             <option value="mensual">Mensual</option>
+        </td></tr>
+    <tr><td><p><label>Checklist:</label></p></td>
+        <td><select type='text' name='checklist'>
+            <option value="no">No</option>
+            <option value="si">Si</option>
         </td></tr>
 </table>
 <p><input type='submit' name='enviar' value='Guardar'></p>

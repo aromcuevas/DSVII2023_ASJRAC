@@ -16,16 +16,16 @@ CREATE TABLE tareas (
 
 
 INSERT INTO `tareas`(`id`, `titulo`, `descripcion`, `estado`, `etiqueta`, `responsable`, `tipo`, `fecha_i`, `fecha_f`, `checklist`) 
-VALUES ('','Desarrollo de Nueva Característica.','','por hacer','','Equipo de Desarrollo','A','','','no'); 
+VALUES ('','Desarrollo de Nueva Caracterï¿½stica.','','por hacer','','Equipo de Desarrollo','A','','','no'); 
 
 INSERT INTO `tareas`(`id`, `titulo`, `descripcion`, `estado`, `etiqueta`, `responsable`, `tipo`, `fecha_i`, `fecha_f`, `checklist`) 
 VALUES ('','Pruebas de Jugabilidad.','','por hacer','','Equipo de Pruebas','A','','','no'); 
 
 INSERT INTO `tareas`(`id`, `titulo`, `descripcion`, `estado`, `etiqueta`, `responsable`, `tipo`, `fecha_i`, `fecha_f`, `checklist`) 
-VALUES ('','Desarrollo de Niveles y Escenarios.','','por hacer','','Equipo de Diseño','A','','','no'); 
+VALUES ('','Desarrollo de Niveles y Escenarios.','','por hacer','','Equipo de Diseï¿½o','A','','','no'); 
 
 INSERT INTO `tareas`(`id`, `titulo`, `descripcion`, `estado`, `etiqueta`, `responsable`, `tipo`, `fecha_i`, `fecha_f`, `checklist`) 
-VALUES ('','Optimización del Rendimiento.','','por hacer','','Equipo de Optimización','B','','','no'); 
+VALUES ('','Optimizaciï¿½n del Rendimiento.','','por hacer','','Equipo de Optimizaciï¿½n','B','','','no'); 
 
 INSERT INTO `tareas`(`id`, `titulo`, `descripcion`, `estado`, `etiqueta`, `responsable`, `tipo`, `fecha_i`, `fecha_f`, `checklist`) 
 VALUES ('','Arte Conceptual.','','por hacer','','Equipo de Arte','B','','','no'); 
@@ -37,20 +37,20 @@ INSERT INTO `tareas`(`id`, `titulo`, `descripcion`, `estado`, `etiqueta`, `respo
 VALUES ('','Historia y Narrativa.','','por hacer','','Equipo de Escritura','A','','','no'); 
 
 INSERT INTO `tareas`(`id`, `titulo`, `descripcion`, `estado`, `etiqueta`, `responsable`, `tipo`, `fecha_i`, `fecha_f`, `checklist`) 
-VALUES ('','Actualización de Plataformas y Tecnologías.','','por hacer','','Equipo de Tecnología','B','','','no'); 
+VALUES ('','Actualizaciï¿½n de Plataformas y Tecnologï¿½as.','','por hacer','','Equipo de Tecnologï¿½a','B','','','no'); 
 
 INSERT INTO `tareas`(`id`, `titulo`, `descripcion`, `estado`, `etiqueta`, `responsable`, `tipo`, `fecha_i`, `fecha_f`, `checklist`) 
-VALUES ('','Creación de Contenido Descargable.','','por hacer','','Equipo de Contenido Adicional','C','','','no'); 
+VALUES ('','Creaciï¿½n de Contenido Descargable.','','por hacer','','Equipo de Contenido Adicional','C','','','no'); 
 
 INSERT INTO `tareas`(`id`, `titulo`, `descripcion`, `estado`, `etiqueta`, `responsable`, `tipo`, `fecha_i`, `fecha_f`, `checklist`) 
-VALUES ('','Marketing y Promoción.','','por hacer','','Equipo de Marketing','C','','','no'); 
+VALUES ('','Marketing y Promociï¿½n.','','por hacer','','Equipo de Marketing','C','','','no'); 
 
 
 
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_listar_tareas`()
 BEGIN
-  SELECT id, titulo, descripcion, estado, fecha_i, fecha_f, etiqueta, responsable, tipo FROM tareas;
+  SELECT id, titulo, descripcion, estado, fecha_i, fecha_f, etiqueta, responsable, checklist, tipo FROM tareas;
 END ;
 
 
@@ -60,11 +60,13 @@ IN param_titulo VARCHAR(100),
 IN param_descripcion VARCHAR(300),
 IN param_fecha_f VARCHAR(20),
 IN param_responsable VARCHAR(50),
-IN param_tipo VARCHAR(30)
+IN param_tipo VARCHAR(30),
+IN param_checklist VARCHAR(3)
 )
 BEGIN
   SET @s = CONCAT("UPDATE tareas SET titulo=", param_titulo,", descripcion=", param_descripcion, 
-                  ",fecha_f=", param_fecha_f,", responsable=", param_responsable,", tipo=", param_tipo);
+                  ", fecha_f=", param_fecha_f,", responsable=", param_responsable,", tipo=", param_tipo,
+                  ", checklist=", param_checklist);
   PREPARE stmt FROM @s;
   EXECUTE stmt;
   DEALLOCATE PREPARE stmt;

@@ -47,9 +47,9 @@ $resultado=$consulta->fetch_all(MYSQLI_ASSOC);
   }
 }
 
-public function actualizar_tareas($titulo,$descripcion,$fecha_f,$responsable,$tipo){
+public function actualizar_tareas($titulo,$descripcion,$fecha_f,$responsable,$tipo,$checklist){
 
-  $instruccion = "CALL sp_actualizar_tareas('".$titulo."','".$descripcion.",'".$fecha_f.",'".$responsable.",'".$tipo."')";
+  $instruccion = "CALL sp_actualizar_tareas('".$titulo."','".$descripcion.",'".$fecha_f.",'".$responsable.",'".$tipo."','".$checklist."')";
   $actualiza=$this->_db->query($instruccion);
   
     if($actualiza){
